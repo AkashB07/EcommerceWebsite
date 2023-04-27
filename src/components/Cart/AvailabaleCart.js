@@ -1,35 +1,34 @@
-import ProductItem from "./ProductItem";
-import Card from 'react-bootstrap/Card';
+import React, {Fragment} from 'react';
+import CartItem from './CartItem';
 
 const DUMMY_PRODUCT = [
     {
-        id: 'A1',
-        title: 'Album 1',
+        id: 'c1',
+        title: 'Colors',
         price: 100,
         imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
+        quantity: 2,
     },
+
     {
-        id: 'A2',
-        title: 'Album 2',
+        id: 'c2',
+        title: 'Black and white Colors',
         price: 50,
         imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
+        quantity: 3,
     },
+
     {
-        id: 'A3',
-        title: 'Album 3',
+        id: 'c3',
+        title: 'Yellow and Black Colors',
         price: 70,
         imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-    },
-    {
-        id: 'A4',
-        title: 'Album 4',
-        price: 100,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
+        quantity: 1,
     }]
 
-const AvailableProducts = () => {
+const AvailableCart = () => {
     const productList = DUMMY_PRODUCT.map((product) => (
-        <ProductItem
+        <CartItem
             id={product.id}
             key={product.id}
             title={product.title}
@@ -39,12 +38,11 @@ const AvailableProducts = () => {
     ));
 
     return (
-        <Card>
-            <h1 className="text-center"> Music</h1>
-            <ul>{productList}</ul>
-        </Card>
+        <Fragment>
+            {productList}
+        </Fragment>
 
     );
 };
 
-export default AvailableProducts;
+export default AvailableCart;
