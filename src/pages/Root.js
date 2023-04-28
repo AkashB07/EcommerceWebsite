@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { Outlet} from 'react-router-dom';
 import Header from '../components/Layout/Header';
+import Footer from '../components/Layout/Footer';
 import Cart from '../components/Cart/Cart';
 import CartProvider from '../store/CartProvider';
 
@@ -10,7 +11,7 @@ const RootLayout = () => {
   const CartItems = () => {
     setCartItems(true);
   }
-  console.log(cartItems)
+
   const cartItemsClose = () => {
     setCartItems(false);
   }
@@ -20,6 +21,7 @@ const RootLayout = () => {
         <Header showCartItem={CartItems}/>
         {cartItems && <Cart closeCartItem={cartItemsClose} />}
         {!cartItems && <Outlet/>}
+        <Footer/>
     </CartProvider>
 
   );
