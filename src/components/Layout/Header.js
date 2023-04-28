@@ -20,8 +20,8 @@ const Header = props => {
           <Navbar.Brand href="#home"><h1>The Store</h1></Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Store</Nav.Link>
-            <Nav.Link href="#pricing">About</Nav.Link>
+            <Nav.Link href="/">Store</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
           </Nav>
           <Button variant="secondary" size="lg"  onClick={props.showCartItem}>
           <span className="fw-bold">Cart </span>

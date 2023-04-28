@@ -1,26 +1,23 @@
-import React, { useState} from 'react';
-import Header from './components/Layout/Header';
-import Product from './components/Product/Product';
-import Cart from './components/Cart/Cart';
-import CartProvider from "./store/CartProvider";
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import RootLayout from './pages/Root';
+import StorePage from './pages/Store';
+import AboutPage from './pages/About';
+
+
+const router = createBrowserRouter([{
+  path: '/',
+  element: <RootLayout/>,
+  children: [
+    {path:'/',element:<StorePage/>},
+    {path:'/about',element:<AboutPage/>}
+  ]
+}])
 
 let App = () => {
-  const [cartItems, setCartItems] = useState(false);
-
-  const CartItems = () => {
-    setCartItems(true);
-  }
-
-  const cartItemsClose = () => {
-    setCartItems(false);
-  }
-
   return (
-    <CartProvider>
-        <Header showCartItem={CartItems}/>
-        {cartItems && <Cart closeCartItem={cartItemsClose} />}
-        {!cartItems && <Product/>}
-    </CartProvider>
+  
+    <RouterProvider router={router}/>
   );
 }
 
