@@ -29,6 +29,7 @@ const DUMMY_PRODUCT = [
 
 const AvailableProducts = () => {
     const productList = DUMMY_PRODUCT.map((product) => (
+        // {console.log(product.id)},
         <ProductItem
             id={product.id}
             key={product.id}
@@ -37,6 +38,7 @@ const AvailableProducts = () => {
             imageUrl={product.imageUrl}
         />
     ));
+    
 
     return (
         <Card>
