@@ -22,6 +22,7 @@ const Header = props => {
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/">Store</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/contactus">Contact Us</Nav.Link>
           </Nav>
         {cartCtx.cart && <Button variant="secondary" size="lg"  onClick={props.showCartItem}>
         <span className="fw-bold">Cart </span>
