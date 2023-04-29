@@ -9,6 +9,7 @@ import {
   MDBCardImage,
 } from 'mdb-react-ui-kit';
 import CartContext from '../../store/cart-context';
+import { NavLink } from "react-router-dom";
 
 const ProductItem = props => {
   const cartcntxt = useContext(CartContext);
@@ -20,7 +21,9 @@ const ProductItem = props => {
   return (
     <MDBCard alignment='center'>
       <MDBRipple rippleColor='light' rippleTag='div' className='bg-image hover-overlay'>
+      <NavLink to={`/product/${props.id}`} >
         <MDBCardImage src={props.imageUrl} fluid alt='...' />
+        </NavLink>
       </MDBRipple>
       <MDBCardBody>
         <MDBCardTitle>{props.title}</MDBCardTitle>

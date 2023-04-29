@@ -4,6 +4,8 @@ import CartContext from "./cart-context";
 const CartProvider = props => {
     const [items, updateItems] = useState([]);
     const [cart, updateCart] = useState(false);
+    const [products, updateProducts] = useState([]);
+
     const addItemToCartHandler = item => {
         updateItems([...items, item]);
     };
@@ -13,12 +15,18 @@ const CartProvider = props => {
     };
 
     const callCartHandler = value => {
-        updateCart(value)
+        updateCart(value);
     };
+
+    const addProductsHandler = product => {
+        updateProducts([...product]);
+    }
 
     const cartContext = {
         items: items,
         cart: cart,
+        products: products,
+        addProducts: addProductsHandler,
         callCart: callCartHandler,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler

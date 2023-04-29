@@ -1,5 +1,7 @@
+import React, { useContext, useEffect } from "react";
 import ProductItem from "./ProductItem";
 import Card from 'react-bootstrap/Card';
+import CartContext from "../../store/cart-context";
 
 const DUMMY_PRODUCT = [
     {
@@ -28,6 +30,11 @@ const DUMMY_PRODUCT = [
     }]
 
 const AvailableProducts = () => {
+    const cartcntx = useContext(CartContext);
+    useEffect(() => {
+        cartcntx.addProducts(DUMMY_PRODUCT);
+    },[])
+ 
     const productList = DUMMY_PRODUCT.map((product) => (
         // {console.log(product.id)},
         <ProductItem

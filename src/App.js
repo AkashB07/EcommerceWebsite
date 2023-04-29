@@ -1,4 +1,4 @@
-import React,{ useState}  from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from "react-router-dom";
 import Header from './components/Layout/Header';
 import Cart from './components/Cart/Cart';
@@ -8,7 +8,7 @@ import StorePage from './pages/Store';
 import AboutPage from './pages/About';
 import HomePage from './pages/Home';
 import ContactUsPage from './pages/ContactUs';
-
+import ProductDetail from './pages/ProductDetail';
 
 let App = () => {
   const [cartItems, setCartItems] = useState(false);
@@ -23,18 +23,17 @@ let App = () => {
 
   return (
     <CartProvider>
-      <Header showCartItem={CartItems}/>
-        {cartItems && <Cart closeCartItem={cartItemsClose} />}
-        <Routes>
+      <Header showCartItem={CartItems} />
+      {cartItems && <Cart closeCartItem={cartItemsClose} />}
+      <Routes>
         <Route exact path="/" element={!cartItems && <StorePage />} />
         <Route exact path="/home" element={<HomePage />} />
         <Route exact path="/about" element={<AboutPage />} />
         <Route exact path="/contactus" element={<ContactUsPage />} />
-        </Routes>
-        <Footer/>
-
+        <Route exact path="/product/:id" element={<ProductDetail />} />
+      </Routes>
+      <Footer />
     </CartProvider>
-
   );
 }
 
