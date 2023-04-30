@@ -8,6 +8,7 @@ import AboutPage from './pages/About';
 import HomePage from './pages/Home';
 import ContactUsPage from './pages/ContactUs';
 import ProductDetail from './pages/ProductDetail';
+import LoginPage from './pages/LogIn';
 
 let App = () => {
   const [cartItems, setCartItems] = useState(false);
@@ -31,6 +32,7 @@ let App = () => {
         <Route path='/about' exact> <AboutPage /> </Route>
         <Route path='/contactus' exact> <ContactUsPage /> </Route>
         <Route path='/product/:id' exact> <ProductDetail /> </Route>
+        <Route path='/login' exact> <LoginPage /> </Route>
         <Route path='*'> <Redirect to='/' /> </Route>
       </Switch>
       <Footer />
