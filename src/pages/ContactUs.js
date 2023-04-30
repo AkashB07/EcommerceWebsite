@@ -1,8 +1,10 @@
 import React, { Fragment, useRef, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const ContactUsPage = () => {
+    const history = useHistory();
 
     const addRequest = useCallback(async (contact) => {
         const response = await fetch("https://ecommerce-website-1c577-default-rtdb.asia-southeast1.firebasedatabase.app/contact.json", {
@@ -12,8 +14,7 @@ const ContactUsPage = () => {
                 'content-Type': 'application/json'
             }
         })
-        const data = await response.json();
-        // console.log(data);
+        await response.json();
     }, [])
 
     const nameRef = useRef();
@@ -33,9 +34,8 @@ const ContactUsPage = () => {
         };
 
         addRequest(contact);
-        event.target.name.value = '';
-        event.target.email.value = '';
-        event.target.phone.value = '';
+        alert('We will contact you shortly');
+        history.push('/');
     };
 
     return (

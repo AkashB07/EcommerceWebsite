@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import React, { useState, Fragment } from 'react';
+import { Route, Switch, Redirect } from "react-router-dom";
 import Header from './components/Layout/Header';
 import Cart from './components/Cart/Cart';
 import Footer from './components/Layout/Footer';
-import CartProvider from "./store/CartProvider";
 import StorePage from './pages/Store';
 import AboutPage from './pages/About';
 import HomePage from './pages/Home';
@@ -22,18 +21,20 @@ let App = () => {
   }
 
   return (
-    <CartProvider>
+    <Fragment>
       <Header showCartItem={CartItems} />
       {cartItems && <Cart closeCartItem={cartItemsClose} />}
-      <Routes>
-        <Route exact path="/" element={!cartItems && <StorePage />} />
-        <Route exact path="/home" element={<HomePage />} />
-        <Route exact path="/about" element={<AboutPage />} />
-        <Route exact path="/contactus" element={<ContactUsPage />} />
-        <Route exact path="/product/:id" element={<ProductDetail />} />
-      </Routes>
+      <Switch>
+        <Route path='/' exact> {!cartItems && <StorePage />} </Route>
+        <Route path='/store' exact> {!cartItems && <StorePage />} </Route>
+        <Route path='/home' exact> <HomePage /> </Route>
+        <Route path='/about' exact> <AboutPage /> </Route>
+        <Route path='/contactus' exact> <ContactUsPage /> </Route>
+        <Route path='/product/:id' exact> <ProductDetail /> </Route>
+        <Route path='*'> <Redirect to='/' /> </Route>
+      </Switch>
       <Footer />
-    </CartProvider>
+    </Fragment>
   );
 }
 
