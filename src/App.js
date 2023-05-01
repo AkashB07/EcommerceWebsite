@@ -25,8 +25,8 @@ let App = () => {
 
   return (
     <Fragment>
-      <Header showCartItem={CartItems} />
-      {cartItems && <Cart closeCartItem={cartItemsClose} />}
+      <Header showCartItem={CartItems} closeCartItem={cartItemsClose}/>
+      {cartItems && authCtx.isLoggedIn && <Cart closeCartItem={cartItemsClose} />}
       <Switch>
         <Route path='/' exact> 
           {authCtx.isLoggedIn && !cartItems && <StorePage />}

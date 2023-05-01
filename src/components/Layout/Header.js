@@ -11,10 +11,8 @@ const Header = props => {
   const history = useHistory();
 
   const cartCtx = useContext(CartContext);
-  let quantity = 0;
-  cartCtx.items.forEach((item) => {
-    quantity = quantity + Number(item.quantity);
-  });
+  let quantity = Number(localStorage.getItem('quantity'));
+ 
 
   const isLoggedIn = cartCtx.isLoggedIn;
 
@@ -37,9 +35,9 @@ const Header = props => {
           </Nav>
 
           {isLoggedIn && cartCtx.cart && <Button variant="secondary" onClick={props.showCartItem}>
-            <span className="fw-bold">Cart </span>
+          <span className="fw-bold">Cart </span>
             (<span className="font-monospace">{quantity}</span>)</Button>}
-          {isLoggedIn && <Button variant="danger" onClick={logoutHandler}>Logout</Button>}
+          {isLoggedIn && <Button variant="danger" onClick={()=> {logoutHandler();props.closeCartItem()}} >Logout</Button>}
 
         </Container>
       </Navbar>

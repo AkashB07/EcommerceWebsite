@@ -29,6 +29,7 @@ const DUMMY_PRODUCT = [
 
 const CartProvider = props => {
     const initialToken = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
 
     const [items, updateItems] = useState([]);
     const [cart, updateCart] = useState(false);
@@ -48,7 +49,7 @@ const CartProvider = props => {
 
     const userIsLoggedIn = !!token;
 
-    const loginHandler = (token) => {
+    const loginHandler = async (token) => {
         setToken(token);
         localStorage.setItem('token', token);
     };
@@ -56,6 +57,8 @@ const CartProvider = props => {
     const logoutHandler = () => {
         setToken(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('quantity');
     };
 
     const cartContext = {
@@ -64,6 +67,7 @@ const CartProvider = props => {
         products: DUMMY_PRODUCT,
         token: token,
         isLoggedIn: userIsLoggedIn,
+        email: email,
         callCart: callCartHandler,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler,

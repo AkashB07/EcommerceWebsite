@@ -4,72 +4,81 @@ import CartContext from '../store/cart-context';
 import Button from 'react-bootstrap/Button';
 
 const LoginPage = () => {
-    const history = useHistory();
-    const [isLogin, setIsLogin] = useState(true);
-    const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
+  const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const authCtx = useContext(CartContext);
+  const authCtx = useContext(CartContext);
 
-    const emailInputRef = useRef();
-    const passwordInputRef = useRef();
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
 
-    const switchAuthModeHandler = () => {
-      setIsLogin((prevState) => !prevState);
-    };
+  const switchAuthModeHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
 
 
 
-    const submitHandler = async (event) => {
-      try {
-        event.preventDefault();
-        console.log(123)
-        const enteredEmail = emailInputRef.current.value;
-        const enteredPassword = passwordInputRef.current.value;
+  const submitHandler = async (event) => {
+    try {
+      event.preventDefault();
+      const enteredEmail = emailInputRef.current.value;
+      const enteredPassword = passwordInputRef.current.value;
 
-        setIsLoading(true);
+      setIsLoading(true);
 
-        let url;
-        if (isLogin) {
-          url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCJcKdKgNXBmi8H7bIsabHyCeE4hYGXTaM';
-        }
-        else {
-          url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCJcKdKgNXBmi8H7bIsabHyCeE4hYGXTaM';
-        }
-
-        const respone = await fetch(url,
-          {
-            method: 'POST',
-            body: JSON.stringify({
-              email: enteredEmail,
-              password: enteredPassword,
-              returnSecureToken: true,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-
-        setIsLoading(false);
-        if (respone.ok) {
-          const data = await respone.json();
-          
-          authCtx.login(data.idToken);
-          history.replace('/store');
-        }
-        else {
-          const data = await respone.json()
-          let errorMessage = 'Authentication failed!';
-          if (data && data.error && data.error.message) {
-            errorMessage = data.error.message;
-          }
-          throw new Error(errorMessage);
-        }
+      let url;
+      if (isLogin) {
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCJcKdKgNXBmi8H7bIsabHyCeE4hYGXTaM';
+      }
+      else {
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCJcKdKgNXBmi8H7bIsabHyCeE4hYGXTaM';
       }
 
-      catch (error) {
-        alert(error.message);
+      const respone = await fetch(url,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+            returnSecureToken: true,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+      let e = enteredEmail.replace('@', '').replace('.', '');
+
+      const res = await fetch(`https://crudcrud.com/api/5dff005c87694e679d2cfad189a188e5/${e}`);
+      const da = await res.json();
+      let q = 0;
+      for (const key in da) {
+       q += (Number(da[key].quantity))
+      }
+      localStorage.setItem('quantity', q);
+
+      setIsLoading(false);
+      if (respone.ok) {
+        const data = await respone.json();
+        authCtx.login(data.idToken);
+        localStorage.setItem('email', enteredEmail.replace('@', '').replace('.', ''))
+        history.push('/');
+      }
+      else {
+        const data = await respone.json()
+        let errorMessage = 'Authentication failed!';
+        if (data && data.error && data.error.message) {
+          errorMessage = data.error.message;
+        }
+        throw new Error(errorMessage);
       }
     }
+
+    catch (error) {
+      alert(error.message);
+    }
+  }
 
   return (
     <Fragment><br />
@@ -99,7 +108,7 @@ const LoginPage = () => {
     </section> */}
 
       <div className="row justify-content-center">
-        <h1 className="text-center">{isLogin ? 'Login' : 'Sign Up'}</h1><br/><br /><br/><br/>
+        <h1 className="text-center">{isLogin ? 'Login' : 'Sign Up'}</h1><br /><br /><br /><br />
 
         <div className="col-md-4">
           <form id="loginform" onSubmit={submitHandler}>
@@ -111,7 +120,7 @@ const LoginPage = () => {
                 placeholder="Enter email"
                 required ref={emailInputRef}
               />
-            </div><br/>
+            </div><br />
 
             <div className="form-group">
               <label>Password</label>
@@ -121,17 +130,17 @@ const LoginPage = () => {
                 placeholder="Password"
                 required ref={passwordInputRef}
               />
-            </div><br/>
+            </div><br />
             <div className="d-grid gap-2">
-            {!isLoading && <Button type="submit" variant="primary" size="lg">
-               {isLogin ? 'Login' : 'Create Account'}
-              </Button>}{isLoading && <p>Sending request...</p>}<br/>
+              {!isLoading && <Button type="submit" variant="primary" size="lg">
+                {isLogin ? 'Login' : 'Create Account'}
+              </Button>}{isLoading && <p>Sending request...</p>}<br />
               <Button variant="link" size="lg" onClick={switchAuthModeHandler}>
-              {isLogin ? 'Create new account' : 'Login with existing account'}
-              </Button><br/>
+                {isLogin ? 'Create new account' : 'Login with existing account'}
+              </Button><br />
             </div>
 
-          </form><br/><br/><br/>
+          </form><br /><br /><br />
         </div>
       </div>
 
