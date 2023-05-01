@@ -53,7 +53,7 @@ const LoginPage = () => {
         if (respone.ok) {
           const data = await respone.json();
           
-          authCtx.login(data.idToke);
+          authCtx.login(data.idToken);
           history.replace('/store');
         }
         else {

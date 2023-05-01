@@ -29,10 +29,10 @@ const Header = props => {
         <Container>
           <Navbar.Brand href="/"><h1>The Generics</h1></Navbar.Brand>
           <Nav className="me-auto">
-            {isLoggedIn && <Nav.Link href="/home">Home</Nav.Link>}
-            {isLoggedIn && <Nav.Link href="/store">Store</Nav.Link>}
-            {isLoggedIn && <Nav.Link href="/about">About</Nav.Link>}
-            {isLoggedIn && <Nav.Link href="/contactus">Contact Us</Nav.Link>}
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/store">Store</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/contactus">Contact Us</Nav.Link>
             {!isLoggedIn &&  <Nav.Link href="/login">Login</Nav.Link>}
           </Nav>
 

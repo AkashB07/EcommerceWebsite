@@ -1,5 +1,6 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useContext } from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
+import CartContext from './store/cart-context';
 import Header from './components/Layout/Header';
 import Cart from './components/Cart/Cart';
 import Footer from './components/Layout/Footer';
@@ -11,6 +12,7 @@ import ProductDetail from './pages/ProductDetail';
 import LoginPage from './pages/LogIn';
 
 let App = () => {
+  const authCtx = useContext(CartContext);
   const [cartItems, setCartItems] = useState(false);
 
   const CartItems = () => {
@@ -26,12 +28,18 @@ let App = () => {
       <Header showCartItem={CartItems} />
       {cartItems && <Cart closeCartItem={cartItemsClose} />}
       <Switch>
-        <Route path='/' exact> {!cartItems && <StorePage />} </Route>
-        <Route path='/store' exact> {!cartItems && <StorePage />} </Route>
+        <Route path='/' exact> 
+          {authCtx.isLoggedIn && !cartItems && <StorePage />}
+          {!authCtx.isLoggedIn && <Redirect to='/login' />}
+        </Route>
+        <Route path='/store' exact>
+          {authCtx.isLoggedIn && !cartItems && <StorePage />}
+          {!authCtx.isLoggedIn && <Redirect to='/login' />}
+        </Route>
         <Route path='/home' exact> <HomePage /> </Route>
         <Route path='/about' exact> <AboutPage /> </Route>
         <Route path='/contactus' exact> <ContactUsPage /> </Route>
-        <Route path='/product/:id' exact> <ProductDetail /> </Route>
+        {authCtx.isLoggedIn && <Route path='/product/:id' exact> <ProductDetail /> </Route>}
         <Route path='/login' exact> <LoginPage /> </Route>
         <Route path='*'> <Redirect to='/' /> </Route>
       </Switch>

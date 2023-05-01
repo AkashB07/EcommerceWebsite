@@ -54,7 +54,6 @@ const CartProvider = props => {
     };
 
     const logoutHandler = () => {
-        console.log('logout')
         setToken(null);
         localStorage.removeItem('token');
     };
